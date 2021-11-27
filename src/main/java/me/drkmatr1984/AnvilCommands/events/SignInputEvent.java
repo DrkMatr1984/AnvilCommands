@@ -4,7 +4,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerEvent;
 
-import me.drkmatr1984.AnvilCommands.handlers.SignInputHandler;
+import me.drkmatr1984.AnvilCommands.handlers.SignInputHandler1_11;
 
 public class SignInputEvent
 {
@@ -20,7 +20,7 @@ public class SignInputEvent
             super(p);
             result = lines;
             setResults(lines);
-            SignInputHandler.ejectNetty(p);
+            SignInputHandler1_11.ejectNetty(p);
         }
         
         public String[] getLines(){

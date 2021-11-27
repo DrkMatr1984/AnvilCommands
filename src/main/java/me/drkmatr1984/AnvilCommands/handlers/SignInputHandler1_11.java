@@ -17,7 +17,7 @@ import me.drkmatr1984.AnvilCommands.utils.ReflectionUtils;
 import net.minecraft.server.v1_11_R1.Packet;
 import net.minecraft.server.v1_11_R1.PacketPlayInUpdateSign;
 
-public class SignInputHandler {
+public class SignInputHandler1_11 {
 
 	static Field channelField;
 	
@@ -72,7 +72,7 @@ public class SignInputHandler {
 			Object con = conField.get(nmsPlayer);
 			Method sendPacket = ReflectionUtils.getNmsClass("PlayerConnection").getMethod("sendPacket", ReflectionUtils.getNmsClass("Packet"));
 		    sendPacket.invoke(con, packet);
-		    SignInputHandler.injectNetty(pl);
+		    SignInputHandler1_11.injectNetty(pl);
 		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | NoSuchFieldException | IllegalArgumentException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

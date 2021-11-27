@@ -12,9 +12,9 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import me.drkmatr1984.AnvilCommands.AnvilConfig.Anvils;
 import me.drkmatr1984.AnvilCommands.AnvilConfig.Types;
-import me.drkmatr1984.AnvilCommands.handlers.SignInputHandler;
 import me.drkmatr1984.AnvilCommands.listeners.SignGUICloseListener;
 import me.drkmatr1984.AnvilCommands.tasks.CommandTask;
+import me.drkmatr1984.AnvilCommands.utils.ReflectionUtils;
 import net.wesjd.anvilgui.AnvilGUI;
 
 public class AnvilCommandExecutor
@@ -81,7 +81,12 @@ public boolean onCommand(CommandSender sender, Command cmd, String label, String
 							HashMap<Player, List<String>> config = SignGUICloseListener.getConfig();
 		            		config.put(pl, commandList);
 		            		SignGUICloseListener.setConfig(config);
-		            		SignInputHandler.openSignGUI(pl);
+		            		String nms = ReflectionUtils.getNMSVersion();
+		            		String mcver = ReflectionUtils.formatNMSVersion(nms);
+		            		if(mcver == "1.11.2/1.11")
+		            			me.drkmatr1984.AnvilCommands.handlers.SignInputHandler1_11.openSignGUI(pl);
+		            		else if(mcver == "1.12")
+		            			me.drkmatr1984.AnvilCommands.handlers.SignInputHandler1_12.openSignGUI(pl);
 						}            			  
             		  }, 70L);
             		              		  
