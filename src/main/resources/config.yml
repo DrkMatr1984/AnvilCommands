@@ -16,7 +16,7 @@
 ##       ^^Creates a new command called /newtown, this is where you name the command for your anvilGUI. This is the only
 ##         Config header you should be editing
 ##       permission: anvilcommands.newtown
-##            permission to open this Anvil GUI
+##            permission to open this Anvil GUI, leave as "" to not require a permission
 ##       type: ANVIL or SIGN
 ##       prompt: "Town Name :"
 ##            ##The text for the item in Slot1 and the default text in the textbox in anvils, and a

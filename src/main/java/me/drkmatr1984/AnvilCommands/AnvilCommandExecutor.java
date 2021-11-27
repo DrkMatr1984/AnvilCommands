@@ -59,50 +59,47 @@ public boolean onCommand(CommandSender sender, Command cmd, String label, String
         	HashMap<String, Anvils> buttons = new HashMap<String, Anvils>();
             buttons = this.cfg.LoadButtonsfromConfig(s);
             Anvils thisList = buttons.get(s);
-            if (!thisList.getPermission().equals(null)) {
-              if ((p.hasPermission(thisList.getPermission())) || (p.hasPermission("anvilcommands.admin"))) {
-            	  final Player pl = p;
-            	  Types type = thisList.getType();
-            	  List<String> commandList = thisList.getCommands();
-            	  if(type == Types.ANVIL){
-            		  new AnvilGUI(AnvilCommandExecutor.plugin, pl, thisList.getPrompt(), (player, reply) -> {
-            			  if (!reply.equals(null)) {          				  
-            				  doCommands(pl, reply, commandList);
-            				  return null;
-            			  }
-              		      return "&4Canceled";
-            		  });
-            	  }
-            	  if(type == Types.SIGN){
-            		  p.sendMessage(ChatColor.translateAlternateColorCodes('&', thisList.getPrompt()));
-            		  Bukkit.getServer().getScheduler().runTaskLater(AnvilCommandExecutor.plugin, new BukkitRunnable(){
-						@Override
-						public void run() {
-							HashMap<Player, List<String>> config = SignGUICloseListener.getConfig();
-		            		config.put(pl, commandList);
-		            		SignGUICloseListener.setConfig(config);
-		            		String nms = ReflectionUtils.getNMSVersion();
-		            		String mcver = ReflectionUtils.formatNMSVersion(nms);
-		            		if(mcver == "1.11.2/1.11")
-		            			me.drkmatr1984.AnvilCommands.handlers.SignInputHandler1_11.openSignGUI(pl);
-		            		else if(mcver == "1.12")
-		            			me.drkmatr1984.AnvilCommands.handlers.SignInputHandler1_12.openSignGUI(pl);
-						}            			  
-            		  }, 70L);
-            		              		  
-            	  }
-              } else {
-                p.sendMessage(this.lang.PLPrefix + this.lang.NoPerms);
-              }
-            }
+            if ((p.hasPermission(thisList.getPermission())) || (p.hasPermission("anvilcommands.admin")) || thisList.getPermission().equals("")) {
+               final Player pl = p;
+               Types type = thisList.getType();
+               List<String> commandList = thisList.getCommands();
+               if(type == Types.ANVIL){
+           		  new AnvilGUI(AnvilCommandExecutor.plugin, pl, thisList.getPrompt(), (player, reply) -> {
+           			  if (!reply.equals(null)) {          				  
+           				  doCommands(pl, reply, commandList);
+           				  return null;
+           			  }
+             		      return "&4Canceled";
+           		  });
+           	  }
+           	  if(type == Types.SIGN){
+           		  p.sendMessage(ChatColor.translateAlternateColorCodes('&', thisList.getPrompt()));
+           		  Bukkit.getServer().getScheduler().runTaskLater(AnvilCommandExecutor.plugin, new BukkitRunnable(){
+           			  @Override
+					  public void run() {
+						HashMap<Player, List<String>> config = SignGUICloseListener.getConfig();
+		            	config.put(pl, commandList);
+		            	SignGUICloseListener.setConfig(config);
+		            	String nms = ReflectionUtils.getNMSVersion();
+		            	String mcver = ReflectionUtils.formatNMSVersion(nms);
+		            	if(mcver == "1.11.2/1.11")
+		            		me.drkmatr1984.AnvilCommands.handlers.SignInputHandler1_11.openSignGUI(pl);
+		            	else if(mcver == "1.12")
+		            		me.drkmatr1984.AnvilCommands.handlers.SignInputHandler1_12.openSignGUI(pl);
+					}            			  
+            	   }, 70L);	              		  
+           	  }
+          } else {
+             p.sendMessage(this.lang.PLPrefix + this.lang.NoPerms);
           }
-        }  
-      }
-      return true;
-    } catch (Exception e) {
+        }
+      }  
+    }
+    return true;
+  } catch (Exception e) {
       sender.sendMessage(ChatColor.DARK_RED + "An Error has Occured");
       e.printStackTrace();
-    }
+  }
     return false;
   }
   

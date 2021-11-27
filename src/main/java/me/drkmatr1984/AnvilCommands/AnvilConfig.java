@@ -47,6 +47,8 @@ public class AnvilConfig{
 		    	String perm = "config.commands." + s + ".permission";
 		    	if(f.getString(perm)!=null)
 		    		permission = f.getString(perm);
+		    	else
+		    		permission = "";
 		    	//Type of GUI (Anvil, Sign, CommandBlock)
 		    	String type = "config.commands." + s + ".type";
 		    	if(f.getString(type)!=null){
